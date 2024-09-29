@@ -1,4 +1,4 @@
-import {defineDevConfig} from '@junobuild/config';
+import { defineDevConfig } from '@junobuild/config';
 
 export default defineDevConfig(() => ({
   satellite: {
@@ -9,8 +9,8 @@ export default defineDevConfig(() => ({
           read: 'managed' as const,
           write: 'managed' as const,
           memory: 'stable' as const,
-          mutablePermissions: true
-        }
+          mutablePermissions: true,
+        },
       ],
       datastore: [
         {
@@ -18,9 +18,9 @@ export default defineDevConfig(() => ({
           read: 'managed' as const,
           write: 'managed' as const,
           memory: 'stable' as const,
-          mutablePermissions: true
-        }
-      ]
-    }
-  }
+          mutablePermissions: true,
+        },
+      ],
+    },
+  },
 }));

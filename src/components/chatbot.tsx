@@ -1,9 +1,8 @@
 // Chatbot.tsx
 'use client';
 
-import { initSatellite } from '@junobuild/core-peer';
 import { useChat } from 'ai/react';
-import { BotIcon } from 'lucide-react';
+import { DogIcon } from 'lucide-react';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import Markdown from 'react-markdown';
 
@@ -11,35 +10,15 @@ import { cn } from '@/lib/utils';
 
 import Sidebar from './Sidebar';
 import ChatInput from './chatInput';
-import Header from './header';
 
 export default function Chatbot() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
   const { messages, input, handleInputChange, handleSubmit, isLoading, stop } = useChat({
-    api: 'https://lmnwkf0r-5050.brs.devtunnels.ms/api/ask-query',
+    api: 'http://127.0.0.1:5050/api',
   });
 
   const chatRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const initializeSatellite = async () => {
-      try {
-        await initSatellite({
-          workers: {
-            auth: true,
-          },
-        });
-        setIsInitialized(true);
-        console.log('Juno initialized successfully');
-      } catch (error) {
-        console.error('Error initializing satellite:', error);
-      }
-    };
-
-    initializeSatellite();
-  }, []);
 
   useEffect(() => {
     if (darkMode) {
@@ -49,6 +28,15 @@ export default function Chatbot() {
     }
   }, [darkMode]);
 
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTo({
+        top: chatRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, [messages]);
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -57,15 +45,13 @@ export default function Chatbot() {
       return;
     }
 
-    console.log({ e });
-
-    handleSubmit(e, {});
+    handleSubmit(e);
   };
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
   return (
-    <div className={`flex h-screen`}>
+    <div className="flex h-screen bg-[#004C8C59]">
       {/* Sidebar with animation */}
       <div
         className={`fixed inset-y-0 left-0 z-30 transform transition-all duration-300 ease-in-out ${
@@ -76,17 +62,27 @@ export default function Chatbot() {
       </div>
 
       {/* Chat area */}
-      <div className="flex-grow flex flex-col bg-[#004C8C59] dark:bg-gray-900">
-        <Header
+      <div className="flex-grow flex flex-col max-w-3xl mx-auto pt-10 dark:bg-gray-900">
+        {/*  <Header
           onOpenSidebar={() => setSidebarOpen(true)}
           sidebarOpen={sidebarOpen}
           darkMode={darkMode}
           onToggleDarkMode={toggleDarkMode}
-        />
+        /> */}
 
         {/* Chat messages area */}
         <main className="flex-grow overflow-y-auto p-4">
-          <div className="max-w-3xl mx-auto space-y-4" ref={chatRef}>
+          <div className="space-y-4 h-full" ref={chatRef}>
+            {messages.length === 0 && (
+              <div className="flex flex-col items-center justify-center h-full">
+                <div className="text-gray-800">
+                  <DogIcon size={32} />
+                </div>
+                <div className="text-gray-800">
+                  Si necesitas ayuda o queres saber algo, solo hazmelo saber!
+                </div>
+              </div>
+            )}
             {messages.map((m) => (
               <div
                 key={m.id}
@@ -97,18 +93,18 @@ export default function Chatbot() {
               >
                 {m.role === 'assistant' && (
                   <span className="border border-gray-600 h-fit inline-block w-fit p-1 rounded-full">
-                    <BotIcon size={22} />
+                    <DogIcon size={22} />
                   </span>
                 )}
-                <p
+                <div
                   className={cn(
                     m.role === 'user'
-                      ? 'bg-gray-700 rounded-full w-fit py-2 px-4'
-                      : 'bg-transparent',
+                      ? 'bg-gray-700 text-white rounded-full rounded-br-none w-fit py-2 px-4'
+                      : 'bg-gray-600 text-white py-2 px-4 rounded-3xl rounded-tl-none w-fit',
                   )}
                 >
                   <Markdown>{m.content}</Markdown>
-                </p>
+                </div>
               </div>
             ))}
           </div>
@@ -121,7 +117,6 @@ export default function Chatbot() {
             value={input}
             handleInputChange={handleInputChange}
             darkMode={darkMode}
-            isInitialized={isInitialized}
           />
         </footer>
       </div>

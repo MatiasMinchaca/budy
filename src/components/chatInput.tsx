@@ -1,12 +1,11 @@
 // ChatInput.tsx
-import { ArrowUpIcon, PaperClipIcon } from '@heroicons/react/24/solid';
+import { ArrowUpIcon } from '@heroicons/react/24/solid';
 import { uploadFile } from '@junobuild/core-peer';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 
 type ChatInputProps = {
   darkMode: boolean;
-  isInitialized: boolean;
   onSubmitMessage: (event: React.FormEvent<HTMLFormElement>) => void;
   value: string;
   handleInputChange: (
@@ -16,7 +15,6 @@ type ChatInputProps = {
 
 export default function ChatInput({
   darkMode,
-  isInitialized,
   onSubmitMessage,
   value,
   handleInputChange,
@@ -34,16 +32,12 @@ export default function ChatInput({
 
     try {
       if (file) {
-        if (isInitialized) {
-          const result = await uploadFile({
-            data: file,
-            collection: 'pdfs',
-            token: nanoid(),
-          });
-          console.log('Archivo subido:', result);
-        } else {
-          console.error('Juno no está inicializado');
-        }
+        const result = await uploadFile({
+          data: file,
+          collection: 'pdfs',
+          token: nanoid(),
+        });
+        console.log('Archivo subido:', result);
       }
       setMessage('');
       setFile(null);
@@ -65,7 +59,7 @@ export default function ChatInput({
           placeholder="Escribe tu mensaje aquí..."
         />
         <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
-          <label
+          {/*  <label
             htmlFor="file-upload"
             className="p-2 rounded-full bg-transparent hover:bg-gray-200/50 dark:hover:bg-gray-700/50 transition-colors duration-300 cursor-pointer"
           >
@@ -77,10 +71,10 @@ export default function ChatInput({
               className="hidden"
               onChange={handleFileChange}
             />
-          </label>
+          </label> */}
           <button
-            className={`p-2 rounded-full ${message || file ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'} transition-colors duration-300`}
-            disabled={!message && !file}
+            className={`p-2 rounded-full ${value ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'} transition-colors duration-300`}
+            disabled={!value}
             type="submit"
           >
             <ArrowUpIcon

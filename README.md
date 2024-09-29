@@ -1,14 +1,7 @@
-# Juno: Next.js Example
+# BUDY
 
-```sh
-npm create juno@latest -- --template nextjs-example
-```
-
-> 🧑‍🚀 **Seasoned dev?** Delete this file. Have fun!
-
-![A screenshot of the example](https://raw.githubusercontent.com/junobuild/create-juno/main/screenshots/screenshot-example.png)
-
-An example developed for [Juno](https://juno.build) using [Next.js](https://nextjs.org/docs).
+- Satellite ID: 6wai3-dyaaa-aaaal-amhqa-cai
+- Deploy: [https://6wai3-dyaaa-aaaal-amhqa-cai.icp0.io/](https://6wai3-dyaaa-aaaal-amhqa-cai.icp0.io/)
 
 ## ✨ Links & Resources
 
