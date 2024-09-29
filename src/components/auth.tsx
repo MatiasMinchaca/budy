@@ -1,34 +1,22 @@
-import { Login } from '@/components/login';
-import { Logout } from '@/components/logout';
+'use client';
+
 import { authSubscribe, type User } from '@junobuild/core-peer';
 import { createContext, useEffect, useState, type ReactNode } from 'react';
 
 export const AuthContext = createContext<{ user: User | undefined | null }>({ user: undefined });
 
 interface AuthProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
-export const Auth = ({ children }: AuthProps) => {
-    const [user, setUser] = useState<User | undefined | null>(undefined);
+export const AuthProvider = ({ children }: AuthProps) => {
+  const [user, setUser] = useState<User | undefined | null>(undefined);
 
-    useEffect(() => {
-        const sub = authSubscribe((user) => setUser(user));
+  useEffect(() => {
+    const sub = authSubscribe((user) => setUser(user));
 
-        return () => sub();
-    }, []);
+    return () => sub();
+  }, []);
 
-    return (
-        <AuthContext.Provider value={{ user }}>
-            {user !== undefined && user !== null ? (
-                <div>
-                    {children}
-
-
-                </div>
-            ) : (
-                <Login />
-            )}
-        </AuthContext.Provider>
-    );
+  return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
 };

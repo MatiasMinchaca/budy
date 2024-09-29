@@ -1,6 +1,7 @@
-import {Button} from './button';
-import {signIn} from '@junobuild/core-peer';
+import { signIn } from '@junobuild/core-peer';
+
+import { Button } from '@/components/ui/button';
 
 export const Login = () => {
-    return <Button onClick={signIn}>Sign in</Button>;
+  return <Button onClick={() => signIn()}>Login</Button>;
 };

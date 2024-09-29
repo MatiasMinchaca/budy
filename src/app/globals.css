@@ -12,3 +12,62 @@
 .duration-300 {
   transition-duration: 300ms;
 }
+
+@layer base {
+  :root {
+    /* Name: custom color palette
+       Author: Ilias Ism
+       URL: https://gradient.page */
+
+    /* CSS: .bg-gradient { background: var(--gradient) } */
+    --gradient: #1d976c; /* #1d976c | rgb(29, 151, 108) */
+
+    --tip-divs: #b1cfc58c; /* #B1CFC58C | rgb(177, 207, 197, 140) */
+
+    --dark-blue: #004c8c; /* #004C8C | rgb(0, 76, 140) */
+
+    --background: #003e3c; /* #003e3c | rgb(0, 62, 60) */
+    --foreground: #d0f0f0; /* #d0f0f0 | rgb(208, 240, 240) */
+
+    --muted: #0a2d2c; /* #0a2d2c | rgb(10, 45, 44) */
+    --muted-foreground: #8ba7a6; /* #8ba7a6 | rgb(139, 167, 166) */
+
+    --popover: #001e1d; /* #001e1d | rgb(0, 30, 29) */
+    --popover-foreground: #d0f0f0; /* #d0f0f0 | rgb(208, 240, 240) */
+
+    --card: #001e1d; /* #001e1d | rgb(0, 30, 29) */
+    --card-foreground: #d0f0f0; /* #d0f0f0 | rgb(208, 240, 240) */
+
+    --border: #0a2d2c; /* #0a2d2c | rgb(10, 45, 44) */
+    --input: #0a2d2c; /* #0a2d2c | rgb(10, 45, 44) */
+
+    --primary: #9dc5b2; /* #9dc5b2 | rgb(157, 197, 178) */
+    --primary-foreground: #d0f0f0; /* #d0f0f0 | rgb(208, 240, 240) */
+
+    --secondary: #0a2d2c; /* #0a2d2c | rgb(10, 45, 44) */
+    --secondary-foreground: #d0f0f0; /* #d0f0f0 | rgb(208, 240, 240) */
+
+    --accent: #0a2d2c; /* #0a2d2c | rgb(10, 45, 44) */
+    --accent-foreground: #d0f0f0; /* #d0f0f0 | rgb(208, 240, 240) */
+
+    --destructive: #d73700; /* #d73700 | rgb(215, 55, 0) */
+    --destructive-foreground: #d0f0f0; /* #d0f0f0 | rgb(208, 240, 240) */
+
+    --ring: #9dc5b2; /* #9dc5b2 | rgb(157, 197, 178) */
+    --radius: 0.5rem;
+    --chart-1: #f25a24; /* #f25a24 | rgb(242, 90, 36) */
+    --chart-2: #aeaa0d; /* #aeaa0d | rgb(174, 170, 13) */
+    --chart-3: #4f7f8e; /* #4f7f8e | rgb(79, 127, 142) */
+    --chart-4: #e5c933; /* #e5c933 | rgb(229, 201, 51) */
+    --chart-5: #a9001d; /* #a9001d | rgb(169, 0, 29) */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground min-h-screen;
+  }
+}
